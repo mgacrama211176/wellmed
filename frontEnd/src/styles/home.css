@@ -1,0 +1,38 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.mainContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.mainContainer img {
+  max-width: 80%;
+}
+
+.searchBar {
+  min-height: 2em;
+  display: flex;
+  justify-content: center;
+}
+
+.searchBar #search {
+  max-width: 3000px;
+  font-size: 20px;
+  border-radius: 10px 0 0 10px;
+  border-color: white;
+  box-shadow: black;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+.searchBar button {
+  color: white;
+  background-color: #12a9a9;
+  padding: 10px;
+  border-radius: 0 10px 10px 0;
+  font-weight: bold;
+  box-shadow: 5px 5px 5px #888888;
+  cursor: pointer;
+}
