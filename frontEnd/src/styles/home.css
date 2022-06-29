@@ -22,17 +22,50 @@
   max-width: 3000px;
   font-size: 20px;
   border-radius: 10px 0 0 10px;
-  border-color: white;
-  box-shadow: black;
+  border-color: #ffffff;
+  box-shadow: #000000;
   box-shadow: 5px 5px 5px #888888;
 }
 
 .searchBar button {
-  color: white;
+  color: #ffffff;
   background-color: #12a9a9;
   padding: 10px;
   border-radius: 0 10px 10px 0;
   font-weight: bold;
   box-shadow: 5px 5px 5px #888888;
   cursor: pointer;
+}
+
+/* Login pArt */
+
+.login {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+}
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 150px;
+  padding: 2px;
+}
+
+.login form input {
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.login form #submit {
+  background-color: #12a9a9;
+  color: #ffffff;
+  animation: ease-in;
+  animation-duration: 3s;
+}
+.login form #submit:hover {
+  background-color: #65a404;
 }

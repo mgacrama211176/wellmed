@@ -13,9 +13,17 @@ const Home = () => {
           type="search"
           name="search"
           id="search"
-          placeholder="Search here..."
+          placeholder="Search Medicine..."
         />
         <button>Search</button>
+      </div>
+      <div className="login">
+        <form>
+          <h5>LOGIN</h5>
+          <input type="text" />
+          <input type="text" />
+          <input type="submit" id="submit" />
+        </form>
       </div>
     </div>
   );
