@@ -45,49 +45,51 @@
   right: 2em;
 }
 
+.login Button {
+  color: black;
+  border: 1px solid #000000;
+  box-shadow: 5px 5px 5px #888888;
+  background-color: #12a9a9;
+  font-weight: bold;
+}
+
 .inputContainer {
   display: flex;
   flex-flow: wrap column;
   justify-content: center;
   align-items: center;
-  border: 1px red solid;
 }
 
-.login form #login {
-  cursor: pointer;
-  max-width: 80px;
-  padding: 10px;
-  font-weight: bold;
-  border-radius: 10px;
-  background-color: #12a9a9;
-  color: #ffffff;
-}
-.login form #login:hover {
-  background-color: #65a404;
-}
 form {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  max-width: 150px;
-  padding: 2px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000;
+  border: 2px solid #000;
+  box-shadow: 24px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 5px 5px 5px #ffffff;
 }
 
-.login form input {
+.inputContainer input {
   padding: 5px;
   margin: 2px;
   border: 1px solid #000000;
   border-radius: 5px;
   font-weight: bold;
-  max-width: 100px;
+  max-width: 200px;
+  margin: 5px;
 }
 
-.login form #submit {
+.inputContainer #submit {
   background-color: #12a9a9;
   color: #ffffff;
   animation: ease-in;
   animation-duration: 3s;
 }
-.login form #submit:hover {
+.inputContainer #submit:hover {
   background-color: #65a404;
 }
