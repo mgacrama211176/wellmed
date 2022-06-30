@@ -44,6 +44,27 @@
   top: 2em;
   right: 2em;
 }
+
+.inputContainer {
+  display: flex;
+  flex-flow: wrap column;
+  justify-content: center;
+  align-items: center;
+  border: 1px red solid;
+}
+
+.login form #login {
+  cursor: pointer;
+  max-width: 80px;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: #12a9a9;
+  color: #ffffff;
+}
+.login form #login:hover {
+  background-color: #65a404;
+}
 form {
   display: flex;
   justify-content: center;
@@ -58,6 +79,7 @@ form {
   border: 1px solid #000000;
   border-radius: 5px;
   font-weight: bold;
+  max-width: 100px;
 }
 
 .login form #submit {

@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from '../assets/logo.jpg';
 import '../styles/home.css';
 
 const Home = () => {
+  const [show, setShow] = useState('none');
+
+  // useEffect(() => {
+  //   setShow(show);
+  // }, [show]);
+
   return (
     <div>
       <div className="mainContainer">
@@ -19,10 +25,14 @@ const Home = () => {
       </div>
       <div className="login">
         <form>
-          <h5>LOGIN</h5>
-          <input type="text" />
-          <input type="text" />
-          <input type="submit" id="submit" />
+          <button id="login" onClick={setShow('block')}>
+            Login
+          </button>
+          <div className="inputContainer" style={{ display: `${show}` }}>
+            <input type="text" placeholder="username" />
+            <input type="password" placeholder="password" />
+            <input type="submit" id="submit" />
+          </div>
         </form>
       </div>
     </div>
