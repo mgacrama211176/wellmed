@@ -15,6 +15,19 @@ const Home = () => {
 
   const authAcountAndRedirect = async (e) => {
     e.preventDefault();
+    console.log(login);
+  };
+
+  const [login, setLogin] = useState({
+    username: '',
+    password: '',
+  });
+
+  const onChangeHandle = (e) => {
+    const userInput = { ...login };
+    userInput[e.target.id] = e.target.value;
+    setLogin(userInput);
+    console.log(userInput);
   };
   return (
     <div>
@@ -40,9 +53,27 @@ const Home = () => {
         >
           <form>
             <div className="inputContainer">
-              <input type="text" placeholder="username" />
-              <input type="password" placeholder="password" />
-              <input type="submit" id="submit" />
+              <input
+                type="text"
+                placeholder="username"
+                id="username"
+                onChange={(e) => onChangeHandle(e)}
+                value={setLogin.username}
+                required
+              />
+              <input
+                type="password"
+                placeholder="password"
+                id="password"
+                onChange={(e) => onChangeHandle(e)}
+                value={setLogin.password}
+                required
+              />
+              <input
+                type="submit"
+                id="submit"
+                onSubmit={(e) => authAcountAndRedirect(e)}
+              />
             </div>
           </form>
         </Modal>
