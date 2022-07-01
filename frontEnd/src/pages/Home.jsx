@@ -12,6 +12,10 @@ const Home = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const authAcountAndRedirect = async (e) => {
+    e.preventDefault();
+  };
   return (
     <div>
       <div className="mainContainer">

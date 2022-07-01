@@ -6,8 +6,6 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import logger from 'morgan';
 
-import usersRouter from './routes/users.js';
-
 //Models
 import adminModel from './models/AdminAccount.js';
 import newProducts from './models/ProductsModel.js';
@@ -15,6 +13,7 @@ import newProducts from './models/ProductsModel.js';
 //import Routes
 import newAdmin from './routes/createAdmin.js';
 import newProduct from './routes/newProduct.js';
+import login from './routes/login.js';
 
 //connecting to DB
 import connectdb from './connectdb.js';
@@ -32,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Routes
 app.use('/registerAdmin', newAdmin);
 app.use('/newProduct', newProduct);
+app.use('/login', login);
 
 // app.use(function (req, res, next) {
 //   res.status(404).json({message: "We couldn't find what you were looking for 😞"})

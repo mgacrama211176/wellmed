@@ -6,6 +6,8 @@ const router = express.Router();
 /* GET users listing. */
 router.post('/', async (request, response) => {
   //manually adding admin on mongo
+
+  //bcrypt encrypts the data specially password to hide the password
   const hashPassword = await bcrypt.hash(request.body.password, 10);
 
   const username = request.body.username;
@@ -16,7 +18,7 @@ router.post('/', async (request, response) => {
     password: password,
   });
   await administrator.save();
-  response.status(201).json({ message: 'Admin Created' });
+  response.status(201).send({ message: 'Admin Created' });
 });
 
 export default router;
