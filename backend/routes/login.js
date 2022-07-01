@@ -19,8 +19,6 @@ router.post('/', async (request, response) => {
       });
     }
   });
-
-  //   bcrypt.compare();
 });
 
 export default router;

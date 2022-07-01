@@ -1,0 +1,6 @@
+.imgContainer {
+  max-width: 1000px;
+}
+.imgContainer img {
+  max-width: 50%;
+}

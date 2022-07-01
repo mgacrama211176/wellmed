@@ -8,6 +8,10 @@ import '../styles/home.css';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 
+//other components
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Home = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -20,23 +24,43 @@ const Home = () => {
     password: '',
   });
 
+  const notify = () =>
+    toast.success(`Welcome ${login.username}`, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
   //Auto then Redirect to a new page.,
-  const authAcountAndRedirect = async () => {
-    e.preventDefault();
-    console.log(login);
-    // setLogin('');
+  const authAcountAndRedirect = async (e) => {
+    e.preventDefault(e);
+    setLogin('');
     await axios
       .post(url, {
         username: login.username,
         password: login.password,
       })
+      //I need to check if the username and password is correct.
+      //if correct it will pop up that the password is correct then direct to the console page.
+      //else it will pop up an error that there is wront with the input.
+
       .then((response) => {
-        sessionStorage.setItem(
-          'admin',
-          JSON.stringify(login.username, login.password)
-        );
-        nav('/console');
-        console.log(response.data);
+        console.log(response);
+        if (response.status === 200) {
+          notify();
+        } else {
+          console.log(`DIE BITCH`);
+        }
+        // sessionStorage.setItem(
+        //   'admin',
+        //   JSON.stringify(login.username, login.password)
+        // );
+        // nav('/console');
+        // console.log(response.data);
       });
   };
 
@@ -45,10 +69,21 @@ const Home = () => {
     userInput[e.target.id] = e.target.value;
     setLogin(userInput);
     console.log(userInput);
-    //Put Notification Below
   };
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <ToastContainer />
       <div className="mainContainer">
         <img src={Logo} alt="logo" />
       </div>
@@ -90,7 +125,7 @@ const Home = () => {
               <input
                 type="submit"
                 id="submit"
-                onSubmit={(e) => authAcountAndRedirect(e)}
+                onClick={(e) => authAcountAndRedirect(e)}
               />
             </div>
           </form>
