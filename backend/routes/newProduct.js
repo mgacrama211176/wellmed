@@ -2,20 +2,21 @@ import express from 'express';
 import newProducts from '../models/ProductsModel.js';
 const router = express.Router();
 
-/* GET users listing. */
+/* Adding of products */
 router.post('/', async (request, response) => {
-  const description = request.body.description;
-  const category = request.body.category;
+  const product = request.body.product;
+  const brand = request.body.brand;
+  const unit = request.body.unit;
   const price = request.body.price;
+
   const productInformation = new newProducts({
-    description: description,
-    category: category,
+    product: product,
+    brand: brand,
+    unit: unit,
     price: price,
   });
   await productInformation.save();
-  response
-    .status(200)
-    .json({ message: `Product ${description} has been added` });
+  response.status(200).json({ message: `Product ${product} has been added` });
 });
 
 export default router;

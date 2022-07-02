@@ -8,10 +8,6 @@ import '../styles/home.css';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 
-//other components
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 const Home = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -23,17 +19,6 @@ const Home = () => {
     username: '',
     password: '',
   });
-
-  const notify = () =>
-    toast.success(`Welcome ${login.username}`, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
 
   //Auto then Redirect to a new page.,
   const authAcountAndRedirect = async (e) => {
@@ -50,17 +35,16 @@ const Home = () => {
 
       .then((response) => {
         console.log(response);
-        if (response.status === 200) {
-          notify();
+        if (response.status !== 200) {
+          console.log(`not error 200`);
         } else {
-          console.log(`DIE BITCH`);
+          console.log(`OK`);
         }
-        // sessionStorage.setItem(
-        //   'admin',
-        //   JSON.stringify(login.username, login.password)
-        // );
-        // nav('/console');
-        // console.log(response.data);
+        sessionStorage.setItem(
+          'admin',
+          JSON.stringify(login.username, login.password)
+        );
+        nav('/console');
       });
   };
 
@@ -72,18 +56,6 @@ const Home = () => {
   };
   return (
     <div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <ToastContainer />
       <div className="mainContainer">
         <img src={Logo} alt="logo" />
       </div>

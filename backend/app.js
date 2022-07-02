@@ -6,10 +6,6 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import logger from 'morgan';
 
-//Models
-import adminModel from './models/AdminAccount.js';
-import newProducts from './models/ProductsModel.js';
-
 //import Routes
 import newAdmin from './routes/createAdmin.js';
 import newProduct from './routes/newProduct.js';
