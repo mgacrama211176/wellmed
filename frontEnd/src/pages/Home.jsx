@@ -14,6 +14,7 @@ const Home = () => {
   const handleClose = () => setOpen(false);
   const nav = useNavigate();
   const url = 'http://localhost:4000/login';
+  // const searchURL = ''
 
   const [login, setLogin] = useState({
     username: '',
@@ -48,6 +49,10 @@ const Home = () => {
       });
   };
 
+  //SearchBAR OnChangeHandle
+  const searchBarChange = () => {};
+
+  //LOGIN ON CHANGE
   const onChangeHandle = (e) => {
     const userInput = { ...login };
     userInput[e.target.id] = e.target.value;
@@ -56,6 +61,7 @@ const Home = () => {
   };
   return (
     <div>
+      {/* SEARCH BOX PART */}
       <div className="mainContainer">
         <img src={Logo} alt="logo" />
       </div>
@@ -68,6 +74,7 @@ const Home = () => {
         />
         <button>Search</button>
       </div>
+
       <div className="login">
         <Button onClick={handleOpen}>Login</Button>
         <Modal
