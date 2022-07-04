@@ -3,3 +3,15 @@
 //The deadline of this project will be on July 25, 2022
 
 //For WellMed You have to 1st check on how to do the search Engine thing for the products presented.
+
+
+//Things to CHECK
+[] - query parameter for JS
+[] - search for both aggregation
+[] - const result = await axios.get();
+[] - axios.get().then(result=>{})
+[] - catch if error for axios
+[] - protected routes
+[] - private routes
+
+

@@ -8,6 +8,10 @@ import '../styles/home.css';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 
+//Toast components
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Home = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -15,6 +19,16 @@ const Home = () => {
   const nav = useNavigate();
   const url = 'http://localhost:4000/login';
   const searchURL = 'http://localhost:4000/search';
+  const notify = () =>
+    toast.error('Incorrect Username or Password', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
   const [login, setLogin] = useState({
     username: '',
@@ -24,10 +38,9 @@ const Home = () => {
   const [search, setSearch] = useState({ search: ' ' });
 
   //Auto then Redirect to a new page.,
-  const authAcountAndRedirect = async (e) => {
+  const authAcountAndRedirect = (e) => {
     e.preventDefault(e);
-    setLogin('');
-    await axios
+    axios
       .post(url, {
         username: login.username,
         password: login.password,
@@ -38,16 +51,14 @@ const Home = () => {
 
       .then((response) => {
         console.log(response);
-        if (response.status !== 200) {
-          console.log(`not error 200`);
-        } else {
-          console.log(`OK`);
-        }
         sessionStorage.setItem(
           'admin',
           JSON.stringify(login.username, login.password)
         );
         nav('/console');
+      })
+      .catch((err) => {
+        notify();
       });
   };
 
@@ -67,7 +78,7 @@ const Home = () => {
     console.log(searchInput);
   };
 
-  //Search OnClick
+  // Search OnClick
   // useEffect(() => {
   //   const { data } = axios.get(searchURL, { product: search.search });
   //   console.log(data);
@@ -75,6 +86,17 @@ const Home = () => {
 
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       {/* SEARCH BOX PART */}
       <div className="mainContainer">
         <img src={Logo} alt="logo" />

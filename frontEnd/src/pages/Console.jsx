@@ -25,10 +25,6 @@ const Console = () => {
       progress: undefined,
     });
 
-  useEffect(() => {
-    notify();
-  }, []);
-
   const Logout = () => {
     sessionStorage.removeItem('admin');
     nav('/');
