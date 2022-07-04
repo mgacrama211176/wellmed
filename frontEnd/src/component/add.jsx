@@ -67,6 +67,7 @@ const add = () => {
             id="ProductName"
             onChange={(e) => onChangeHandle(e)}
             value={SetProducts.ProductName}
+            required
           />
           <label htmlFor="Product">Brand Name</label>
           <input
@@ -74,6 +75,7 @@ const add = () => {
             id="BrandName"
             onChange={(e) => onChangeHandle(e)}
             value={SetProducts.BrandName}
+            required
           />
           <label htmlFor="Product">Unit</label>
           <select
@@ -81,6 +83,7 @@ const add = () => {
             id="Unit"
             onChange={(e) => onChangeHandle(e)}
             value={SetProducts.Unit}
+            required
           >
             <option value=""></option>
             <option defaultValue="Ampule">Ampule</option>
@@ -104,6 +107,7 @@ const add = () => {
             id="Price"
             onChange={(e) => onChangeHandle(e)}
             value={SetProducts.Price}
+            required
           />
           <button onClick={onClickAddSubmit}>Submit</button>
         </form>

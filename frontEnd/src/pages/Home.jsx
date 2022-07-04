@@ -13,12 +13,21 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
+  //States
   const [open, setOpen] = React.useState(false);
+  const [search, setSearch] = useState({ search: '' });
+  const [login, setLogin] = useState({
+    username: '',
+    password: '',
+  });
+  const [resultProducts, setResultProducts] = useState([]);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const nav = useNavigate();
+
   const url = 'http://localhost:4000/login';
-  const searchURL = 'http://localhost:4000/search';
+  const searchURL = 'http://localhost:4000/search/';
   const notify = () =>
     toast.error('Incorrect Username or Password', {
       position: 'top-right',
@@ -29,13 +38,6 @@ const Home = () => {
       draggable: true,
       progress: undefined,
     });
-
-  const [login, setLogin] = useState({
-    username: '',
-    password: '',
-  });
-
-  const [search, setSearch] = useState({ search: ' ' });
 
   //Auto then Redirect to a new page.,
   const authAcountAndRedirect = (e) => {
@@ -79,6 +81,20 @@ const Home = () => {
   };
 
   // Search OnClick
+  const getProduct = async () => {
+    const searchedProduct = searchURL + search.search;
+
+    try {
+      const result = await axios.get(searchedProduct);
+      console.log(result.data.message);
+      setResultProducts(result.data.message);
+    } catch (err) {
+      console.log(err);
+    }
+
+    console.log(searchedProduct);
+  };
+
   // useEffect(() => {
   //   const { data } = axios.get(searchURL, { product: search.search });
   //   console.log(data);
@@ -110,8 +126,17 @@ const Home = () => {
           onChange={(e) => searchBarChange(e)}
           value={search.search}
         />
-        <button>Search</button>
+        <button onClick={getProduct}>Search</button>
       </div>
+
+      {resultProducts.map((result) => (
+        <li key={result._id}>
+          {result.product}
+          {result.brand}
+          {result.unit}
+          {result.price}
+        </li>
+      ))}
 
       <div className="login">
         <Button onClick={handleOpen}>Login</Button>
