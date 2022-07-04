@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo.jpg';
@@ -14,12 +14,14 @@ const Home = () => {
   const handleClose = () => setOpen(false);
   const nav = useNavigate();
   const url = 'http://localhost:4000/login';
-  // const searchURL = ''
+  const searchURL = 'http://localhost:4000/search';
 
   const [login, setLogin] = useState({
     username: '',
     password: '',
   });
+
+  const [search, setSearch] = useState({ search: ' ' });
 
   //Auto then Redirect to a new page.,
   const authAcountAndRedirect = async (e) => {
@@ -49,9 +51,6 @@ const Home = () => {
       });
   };
 
-  //SearchBAR OnChangeHandle
-  const searchBarChange = () => {};
-
   //LOGIN ON CHANGE
   const onChangeHandle = (e) => {
     const userInput = { ...login };
@@ -59,6 +58,21 @@ const Home = () => {
     setLogin(userInput);
     console.log(userInput);
   };
+
+  //SearchBAR OnChangeHandle
+  const searchBarChange = (e) => {
+    const searchInput = { ...search };
+    searchInput[e.target.id] = e.target.value;
+    setSearch(searchInput);
+    console.log(searchInput);
+  };
+
+  //Search OnClick
+  // useEffect(() => {
+  //   const { data } = axios.get(searchURL, { product: search.search });
+  //   console.log(data);
+  // }, []);
+
   return (
     <div>
       {/* SEARCH BOX PART */}
@@ -71,6 +85,8 @@ const Home = () => {
           name="search"
           id="search"
           placeholder="Search Medicine..."
+          onChange={(e) => searchBarChange(e)}
+          value={search.search}
         />
         <button>Search</button>
       </div>

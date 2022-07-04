@@ -10,6 +10,7 @@ import logger from 'morgan';
 import newAdmin from './routes/createAdmin.js';
 import newProduct from './routes/newProduct.js';
 import login from './routes/login.js';
+import SearchRoute from './routes/search.js';
 
 //connecting to DB
 import connectdb from './connectdb.js';
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/registerAdmin', newAdmin);
 app.use('/newProduct', newProduct);
 app.use('/login', login);
+app.use('/search', SearchRoute);
 
 // app.use(function (req, res, next) {
 //   res.status(404).json({message: "We couldn't find what you were looking for 😞"})

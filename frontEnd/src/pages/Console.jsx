@@ -24,7 +24,10 @@ const Console = () => {
       draggable: true,
       progress: undefined,
     });
-  notify();
+
+  useEffect(() => {
+    notify();
+  }, []);
 
   const Logout = () => {
     sessionStorage.removeItem('admin');
