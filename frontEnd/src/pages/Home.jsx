@@ -128,16 +128,28 @@ const Home = () => {
         />
         <button onClick={getProduct}>Search</button>
       </div>
-
-      {resultProducts.map((result) => (
-        <li key={result._id}>
-          {result.product}
-          {result.brand}
-          {result.unit}
-          {result.price}
-        </li>
-      ))}
-
+      <div className="tableContainer">
+        <table className="searchProductContainer">
+          <thead>
+            <tr>
+              <th>PRODUCT</th>
+              <th>BRAND</th>
+              <th>UNIT</th>
+              <th>PRICE</th>
+            </tr>
+          </thead>
+          {resultProducts.map((result) => (
+            <tbody key={result._id}>
+              <tr>
+                <td>{result.product}</td>
+                <td>{result.brand}</td>
+                <td>{result.unit}</td>
+                <td>{result.price}</td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      </div>
       <div className="login">
         <Button onClick={handleOpen}>Login</Button>
         <Modal
