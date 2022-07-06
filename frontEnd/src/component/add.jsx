@@ -14,17 +14,17 @@ const add = () => {
     Price: '',
   });
   const productUrl = 'http://localhost:4000/newProduct';
-
-  const notify = () =>
+  const notify = () => {
     toast.success(`Added: ${products.ProductName}`, {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
-      pauseOnHover: true,
+      pauseOnHover: false,
       draggable: true,
       progress: undefined,
     });
+  };
 
   const onChangeHandle = (e) => {
     const newProducts = { ...products };
@@ -34,6 +34,8 @@ const add = () => {
   };
 
   const onClickAddSubmit = async (e) => {
+    e.preventDefault();
+    notify();
     await axios.post(productUrl, {
       product: products.ProductName,
       brand: products.BrandName,
@@ -41,8 +43,12 @@ const add = () => {
       price: parseFloat(products.Price),
     });
 
-    notify();
-    preventDefault(e);
+    SetProducts({
+      ProductName: '',
+      BrandName: '',
+      Unit: '',
+      Price: '',
+    });
   };
 
   return (
@@ -66,7 +72,7 @@ const add = () => {
             type="text"
             id="ProductName"
             onChange={(e) => onChangeHandle(e)}
-            value={SetProducts.ProductName}
+            value={products.ProductName}
             required
           />
           <label htmlFor="Product">Brand Name</label>
@@ -74,15 +80,14 @@ const add = () => {
             type="text"
             id="BrandName"
             onChange={(e) => onChangeHandle(e)}
-            value={SetProducts.BrandName}
-            required
+            value={products.BrandName}
           />
           <label htmlFor="Product">Unit</label>
           <select
             name="Unit"
             id="Unit"
             onChange={(e) => onChangeHandle(e)}
-            value={SetProducts.Unit}
+            value={products.Unit}
             required
           >
             <option value=""></option>
@@ -106,7 +111,7 @@ const add = () => {
             type="text"
             id="Price"
             onChange={(e) => onChangeHandle(e)}
-            value={SetProducts.Price}
+            value={products.Price}
             required
           />
           <button onClick={onClickAddSubmit}>Submit</button>

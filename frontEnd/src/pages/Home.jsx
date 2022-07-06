@@ -122,7 +122,7 @@ const Home = () => {
           type="search"
           name="search"
           id="search"
-          placeholder="Search Medicine..."
+          placeholder="Search Product"
           onChange={(e) => searchBarChange(e)}
           value={search.search}
         />
