@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Routes
 app.use('/registerAdmin', newAdmin);
-app.use('/newProduct', newProduct);
+app.use('/product', newProduct);
 app.use('/login', login);
 app.use('/search', SearchRoute);
 

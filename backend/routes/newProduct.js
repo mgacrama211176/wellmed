@@ -3,7 +3,7 @@ import newProducts from '../models/ProductsModel.js';
 const router = express.Router();
 
 /* Adding of products */
-router.post('/', async (request, response) => {
+router.post('/add', async (request, response) => {
   const product = request.body.product;
   const brand = request.body.brand;
   const unit = request.body.unit;
@@ -17,6 +17,34 @@ router.post('/', async (request, response) => {
   });
   await productInformation.save();
   response.status(200).json({ message: `Product ${product} has been added` });
+});
+
+//Update Products
+router.put('/update/:id', async (request, response) => {
+  try {
+    const update = await newProducts.findByIdAndUpdate(
+      request.params.id,
+      {
+        $set: request.body,
+      },
+      { new: true }
+    );
+    response.status(200).json({ message: 'Product Updated' });
+  } catch (err) {
+    response.status(500).json(err);
+  }
+});
+
+//Deleting of product
+router.delete('/delete/:id', async (request, response) => {
+  try {
+    const deleteProduct = await newProducts.findByIdAndDelete(
+      request.params.id
+    );
+    response.status(200).json({ message: `product has been deleted` });
+  } catch (e) {
+    response.status(500).json(err);
+  }
 });
 
 export default router;

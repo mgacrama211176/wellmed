@@ -1,29 +1,15 @@
 import React, { useEffect } from 'react';
 import Logo from '../assets/logo.jpg';
-import '../styles/console.css';
+import '../styles/add.css';
 import { useNavigate } from 'react-router-dom';
-
-//other components
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 //components
 import AddItems from '../component/add';
+import Update from '../component/Update';
 
 const Console = () => {
   const getSessionUser = sessionStorage.getItem('admin');
   const nav = useNavigate();
-
-  const notify = () =>
-    toast.success(`Welcome ${getSessionUser}`, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
 
   const Logout = () => {
     sessionStorage.removeItem('admin');
@@ -32,18 +18,6 @@ const Console = () => {
 
   return (
     <div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-
       <div className="consoleContainer">
         <div className="imgContainer">
           <img src={Logo} alt="logo" />
@@ -59,8 +33,11 @@ const Console = () => {
       </div>
       {/* COMPONENTS */}
       <div className="displayOptions">
-        <div className="add">
+        {/* <div className="add">
           <AddItems />
+        </div> */}
+        <div className="update">
+          <Update />
         </div>
       </div>
     </div>

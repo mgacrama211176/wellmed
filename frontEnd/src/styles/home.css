@@ -45,7 +45,7 @@
   right: 2em;
 }
 
-.login Button {
+.login button {
   color: black;
   border: 1px solid #000000;
   box-shadow: 5px 5px 5px #888888;
@@ -89,6 +89,9 @@ form {
   color: #ffffff;
   animation: ease-in;
   animation-duration: 3s;
+  border-radius: 10px;
+  max-height: 30px;
+  cursor: pointer;
 }
 .inputContainer #submit:hover {
   background-color: #65a404;
@@ -142,4 +145,26 @@ form {
   text-align: center;
   background-color: #04aa6d;
   color: white;
+}
+
+.linkIcons {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  list-style: none;
+  left: 10px;
+  top: 100px;
+}
+
+.linkIcons img {
+  max-width: 50px;
+  flex-direction: column;
+  cursor: pointer;
+  transition-duration: 2s;
+  transition-property: border;
+}
+
+.linkIcons img:hover {
+  border: 1px solid black;
+  border-radius: 50%;
 }

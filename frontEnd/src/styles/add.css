@@ -1,0 +1,38 @@
+/* ADD CSS */
+.displayOptions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-height: 100vh;
+  min-width: 90%;
+  display: flex;
+  justify-content: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.optionContainer {
+  margin-top: 50px;
+}
+.optionContainer form {
+  display: flex;
+  flex-flow: wrap column;
+  padding: 20px;
+  max-width: 30em;
+  min-width: 30em;
+  min-height: 20em;
+}
+
+form label {
+  padding: 5px;
+}
+
+form input,
+form select {
+  padding: 5px;
+}
+
+form button {
+  width: 5rem;
+  height: 3rem;
+  margin: 20px auto;
+}
