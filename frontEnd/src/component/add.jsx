@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import '../styles/console.css';
-import axios from 'axios';
+import React, { useState } from "react";
+import "../styles/console.css";
+import axios from "axios";
 
 //other components
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const add = () => {
   const [products, SetProducts] = useState({
-    ProductName: '',
-    BrandName: '',
-    Unit: '',
-    Price: '',
+    ProductName: "",
+    BrandName: "",
+    Unit: "",
+    Price: "",
   });
-  const productUrl = 'http://localhost:4000/newProduct';
+  const productUrl = "http://localhost:4000/product/add";
   const notify = () => {
     toast.success(`Added: ${products.ProductName}`, {
-      position: 'top-right',
+      position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -44,10 +44,10 @@ const add = () => {
     });
 
     SetProducts({
-      ProductName: '',
-      BrandName: '',
-      Unit: '',
-      Price: '',
+      ProductName: "",
+      BrandName: "",
+      Unit: "",
+      Price: "",
     });
   };
 
