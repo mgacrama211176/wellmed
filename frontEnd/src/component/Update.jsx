@@ -25,7 +25,7 @@ const Update = () => {
       progress: undefined,
     });
   };
-
+  //SEARCHING FOR ID FUNCTIONS
   const [searchID, setSearchID] = useState({ searchID: '' });
 
   const OnChangeSearchInput = (e) => {
@@ -61,6 +61,27 @@ const Update = () => {
   //     price: parseFloat(products.Price),
   //   });
   // };
+
+  //when selected
+  const [selectedProduct, setSelectedProduct] = useState('');
+  console.log(selectedProduct);
+  const OnClickOnSelected = () => {
+    StepCounter = 2;
+  };
+
+  //GOING TO UPDATE
+  const [toUpdate, setToupdate] = useState({
+    product: '',
+    brand: '',
+    unit: '',
+    price: '',
+  });
+
+  //Update URL
+  const updateURL = 'http://localhost:4000/product/update/';
+  const combinedUpdateURL
+
+//insert here
 
   return (
     <div>
@@ -116,7 +137,14 @@ const Update = () => {
                   <td>{result.brand}</td>
                   <td>{result.unit}</td>
                   <td>{result.price}</td>
-                  <button>Update</button>
+                  <button
+                    onClick={() => {
+                      setSelectedProduct(result._id);
+                      OnClickOnSelected();
+                    }}
+                  >
+                    Update
+                  </button>
                 </tr>
               ))}
             </table>
@@ -130,7 +158,7 @@ const Update = () => {
             </tbody>
           ))} */}
         </div>
-        {/* <form>
+        <form>
           <label htmlFor="Product">Product Name</label>
           <input type="text" id="ProductName" required />
           <label htmlFor="Product">Brand Name</label>
@@ -156,7 +184,7 @@ const Update = () => {
           <label htmlFor="Product">Price</label>
           <input type="text" id="Price" required />
           <button>Submit</button>
-        </form> */}
+        </form>
       </div>
     </div>
   );

@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import Logo from "../assets/logo.jpg";
-import "../styles/add.css";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import Logo from '../assets/logo.jpg';
+import '../styles/add.css';
+import { useNavigate } from 'react-router-dom';
 
 //components
-import AddItems from "../component/add";
-import Update from "../component/Update";
+import AddItems from '../component/add';
+import Update from '../component/Update';
 
 const Console = () => {
-  const getSessionUser = sessionStorage.getItem("admin");
+  const getSessionUser = sessionStorage.getItem('admin');
   const nav = useNavigate();
 
   const Logout = () => {
-    sessionStorage.removeItem("admin");
-    nav("/");
+    sessionStorage.removeItem('admin');
+    nav('/');
   };
 
   return (
@@ -33,12 +33,12 @@ const Console = () => {
       </div>
       {/* COMPONENTS */}
       <div className="displayOptions">
-        <div className="add">
+        {/* <div className="add">
           <AddItems />
-        </div>
-        {/* <div className="update">
-          <Update />
         </div> */}
+        <div className="update">
+          <Update />
+        </div>
       </div>
     </div>
   );
