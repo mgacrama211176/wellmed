@@ -63,25 +63,31 @@ const Update = () => {
   // };
 
   //when selected
-  const [selectedProduct, setSelectedProduct] = useState('');
-  console.log(selectedProduct);
-  const OnClickOnSelected = () => {
+  const [selectedProduct, setSelectedProduct] = useState({
+    selectedProduct: '',
+  });
+
+  const OnClickOnSelected = async () => {
+    const updateURL = 'http://localhost:4000/product/update/';
+    const combinedUpdateURL = updateURL + selectedProduct.selectedProduct;
+    console.log(combinedUpdateURL);
     StepCounter = 2;
   };
 
-  //GOING TO UPDATE
-  const [toUpdate, setToupdate] = useState({
-    product: '',
-    brand: '',
-    unit: '',
-    price: '',
-  });
+  // Search OnClick
+  // const getProduct = async () => {
+  //   const searchedProduct = searchURL + search.search;
 
-  //Update URL
-  const updateURL = 'http://localhost:4000/product/update/';
-  // const combinedUpdateURL
+  //   try {
+  //     const result = await axios.get(searchedProduct);
+  //     console.log(result.data.message);
+  //     setResultProducts(result.data.message);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
 
-  //insert here
+  //   console.log(searchedProduct);
+  // };
 
   return (
     <div>
@@ -122,15 +128,13 @@ const Update = () => {
 
           <div className="tableContainer">
             <table className="searchProductContainer">
-              <thead>
-                <tr>
-                  <th>PRODUCT</th>
-                  <th>BRAND</th>
-                  <th>UNIT</th>
-                  <th>PRICE</th>
-                  <th></th>
-                </tr>
-              </thead>
+              <tr>
+                <th>PRODUCT</th>
+                <th>BRAND</th>
+                <th>UNIT</th>
+                <th>PRICE</th>
+                <th></th>
+              </tr>
               {result.map((result) => (
                 <tr key={result._id}>
                   <td>{result.product}</td>
@@ -138,7 +142,7 @@ const Update = () => {
                   <td>{result.unit}</td>
                   <td>{result.price}</td>
                   <button
-                    onClick={() => {
+                    onClick={(e) => {
                       setSelectedProduct(result._id);
                       OnClickOnSelected();
                     }}
