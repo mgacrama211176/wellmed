@@ -79,9 +79,9 @@ const Update = () => {
 
   //Update URL
   const updateURL = 'http://localhost:4000/product/update/';
-  const combinedUpdateURL
+  // const combinedUpdateURL
 
-//insert here
+  //insert here
 
   return (
     <div>
