@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import '../styles/update.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import "../styles/update.css";
+import axios from "axios";
 
 //other components
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
 
-const steps = ['Search Product', 'Select Product', 'Make Changes'];
+const steps = ["Search Product", "Select Product", "Make Changes"];
 let StepCounter = 0;
 
 const Update = () => {
   const notify = () => {
     toast.success(`Updated: ${products.ProductName}`, {
-      position: 'top-right',
+      position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -26,7 +26,7 @@ const Update = () => {
     });
   };
   //SEARCHING FOR ID FUNCTIONS
-  const [searchID, setSearchID] = useState({ searchID: '' });
+  const [searchID, setSearchID] = useState({ searchID: "" });
 
   const OnChangeSearchInput = (e) => {
     const newSearch = { ...searchID };
@@ -37,7 +37,7 @@ const Update = () => {
 
   const [result, setResult] = useState([]);
   const OnclickSearch = async () => {
-    const productUrl = 'http://localhost:4000/search/';
+    const productUrl = "http://localhost:4000/search/";
     const SearchItem = productUrl + searchID.searchID;
     console.log(SearchItem);
     try {
@@ -63,16 +63,18 @@ const Update = () => {
   // };
 
   //when selected
-  const [selectedProduct, setSelectedProduct] = useState({
-    selectedProduct: '',
-  });
+  const [selectedProduct, setSelectedProduct] = useState("");
 
   const OnClickOnSelected = async () => {
-    const updateURL = 'http://localhost:4000/product/update/';
-    const combinedUpdateURL = updateURL + selectedProduct.selectedProduct;
+    const updateURL = "http://localhost:4000/product/update/";
+    const combinedUpdateURL = updateURL + selectedProduct;
     console.log(combinedUpdateURL);
     StepCounter = 2;
   };
+
+  useEffect(() => {
+    OnClickOnSelected();
+  }, [selectedProduct]);
 
   // Search OnClick
   // const getProduct = async () => {
@@ -104,7 +106,7 @@ const Update = () => {
       />
       <div className="optionContainer">
         <h1>Search Item to Update</h1>
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
           <Stepper activeStep={StepCounter} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
@@ -144,7 +146,6 @@ const Update = () => {
                   <button
                     onClick={(e) => {
                       setSelectedProduct(result._id);
-                      OnClickOnSelected();
                     }}
                   >
                     Update
@@ -162,7 +163,7 @@ const Update = () => {
             </tbody>
           ))} */}
         </div>
-        <form>
+        {/* <form>
           <label htmlFor="Product">Product Name</label>
           <input type="text" id="ProductName" required />
           <label htmlFor="Product">Brand Name</label>
@@ -188,7 +189,7 @@ const Update = () => {
           <label htmlFor="Product">Price</label>
           <input type="text" id="Price" required />
           <button>Submit</button>
-        </form>
+        </form> */}
       </div>
     </div>
   );
