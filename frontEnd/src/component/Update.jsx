@@ -42,7 +42,6 @@ const Update = () => {
     console.log(SearchItem);
     try {
       const result = await axios.get(SearchItem);
-      console.log(result.data.message);
       setResult(result.data.message);
       StepCounter = 1;
     } catch (err) {
@@ -63,13 +62,28 @@ const Update = () => {
   // };
 
   //when selected
+  const [newURL, setNewURL] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("");
-
+  const [selectedProductInformation, setSelectedProductInformation] = useState({
+    brand: "",
+    product: "",
+    unit: "",
+    price: "",
+  });
   const OnClickOnSelected = async () => {
-    const updateURL = "http://localhost:4000/product/update/";
-    const combinedUpdateURL = updateURL + selectedProduct;
-    console.log(combinedUpdateURL);
+    const updateURL = "http://localhost:4000/product/";
+    const combinedUpdateURL = `${updateURL}${selectedProduct}`;
+    setNewURL(combinedUpdateURL);
+    console.log(newURL);
     StepCounter = 2;
+    try {
+      const fetchedProduct = await axios.get(newURL);
+      console.log(fetchedProduct.data.message.product);
+      setSelectedProductInformation(fetchedProduct.data.message.product);
+      console.log(selectedProductInformation.brand);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -144,7 +158,7 @@ const Update = () => {
                   <td>{result.unit}</td>
                   <td>{result.price}</td>
                   <button
-                    onClick={(e) => {
+                    onClick={function () {
                       setSelectedProduct(result._id);
                     }}
                   >
