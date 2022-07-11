@@ -4,7 +4,6 @@
 
 //For WellMed You have to 1st check on how to do the search Engine thing for the products presented.
 
-
 //Things to CHECK
 [] - query parameter for JS
 [] - search for both aggregation
@@ -14,4 +13,17 @@
 [] - protected routes
 [] - private routes
 
+create a function that would return
 
+create a list of options
+
+array list of possible values
+
+generate options functions
+//generateOptions = () => {
+arrayListOfOptions.map()=>{<options> </options>}
+}
+
+generateOptions = () => {
+arrayListOfOptions.map()=>{<options> </options>}
+}

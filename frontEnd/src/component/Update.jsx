@@ -226,7 +226,7 @@ const Update = () => {
             <input
               type="text"
               id="ProductName"
-              value={selectedProductInformation.product}
+              placeholder={selectedProductInformation.product}
               onChange={onChangeHandle}
               required
             />
@@ -234,7 +234,7 @@ const Update = () => {
             <input
               type="text"
               id="BrandName"
-              value={selectedProductInformation.brand}
+              placeholder={selectedProductInformation.brand}
               onChange={onChangeHandle}
             />
             <label htmlFor="Product">Unit</label>
@@ -265,11 +265,11 @@ const Update = () => {
             <input
               type="text"
               id="Price"
-              value={selectedProductInformation.price}
+              placeholder={selectedProductInformation.price}
               onChange={onChangeHandle}
               required
             />
-            <button>Submit</button>
+            <button type="submit">Submit</button>
           </form>
         </div>
       </div>
