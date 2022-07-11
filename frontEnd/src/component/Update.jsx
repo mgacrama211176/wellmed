@@ -1,22 +1,39 @@
-import React, { useState, useEffect } from "react";
-import "../styles/update.css";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import '../styles/update.css';
+import axios from 'axios';
 
 //other components
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
 
-const steps = ["Search Product", "Select Product", "Make Changes"];
 let StepCounter = 0;
 
 const Update = () => {
+  const steps = ['Search Product', 'Select Product', 'Make Changes'];
+  const [deleteProduct, setDeleteProduct] = useState('');
+  const [formHidden, setFormHidden] = useState({
+    tableContainer: 'block',
+    UpdateFormContainer: 'none',
+  });
+
   const notify = () => {
     toast.success(`Updated: ${products.ProductName}`, {
-      position: "top-right",
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  const deletenotify = () => {
+    toast.success(`Product Deleted`, {
+      position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -26,20 +43,19 @@ const Update = () => {
     });
   };
   //SEARCHING FOR ID FUNCTIONS
-  const [searchID, setSearchID] = useState({ searchID: "" });
+  const [searchID, setSearchID] = useState({ searchID: '' });
 
   const OnChangeSearchInput = (e) => {
     const newSearch = { ...searchID };
     newSearch[e.target.id] = e.target.value;
     setSearchID(newSearch);
-    console.log(newSearch);
+    StepCounter = 0;
   };
 
   const [result, setResult] = useState([]);
   const OnclickSearch = async () => {
-    const productUrl = "http://localhost:4000/search/";
+    const productUrl = 'http://localhost:4000/search/';
     const SearchItem = productUrl + searchID.searchID;
-    console.log(SearchItem);
     try {
       const result = await axios.get(SearchItem);
       setResult(result.data.message);
@@ -49,61 +65,71 @@ const Update = () => {
     }
   };
 
-  // console.log(productSearch);
-
-  // const Onsearch = async (e) => {
-  //   e.preventDefault();
-  //   await axios.post(productUrl, {
-  //     product: products.ProductName,
-  //     brand: products.BrandName,
-  //     unit: products.Unit,
-  //     price: parseFloat(products.Price),
-  //   });
-  // };
-
-  //when selected
-  const [newURL, setNewURL] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState("");
+  //when selected for UPDATE
+  const [selectedProduct, setSelectedProduct] = useState('');
   const [selectedProductInformation, setSelectedProductInformation] = useState({
-    brand: "",
-    product: "",
-    unit: "",
-    price: "",
+    product: '',
+    brand: '',
+    unit: '',
+    price: '',
   });
+  const productURL = 'http://localhost:4000/product/';
+
   const OnClickOnSelected = async () => {
-    const updateURL = "http://localhost:4000/product/";
-    const combinedUpdateURL = `${updateURL}${selectedProduct}`;
-    setNewURL(combinedUpdateURL);
-    console.log(newURL);
+    const combinedUpdateURL = `${productURL}${selectedProduct}`;
+
     StepCounter = 2;
+
     try {
-      const fetchedProduct = await axios.get(newURL);
-      console.log(fetchedProduct.data.message.product);
-      setSelectedProductInformation(fetchedProduct.data.message.product);
-      console.log(selectedProductInformation.brand);
+      const fetchedProduct = await axios.get(combinedUpdateURL);
+
+      setSelectedProductInformation({
+        product: fetchedProduct.data.message.product,
+        brand: fetchedProduct.data.message.brand,
+        unit: fetchedProduct.data.message.unit,
+        price: fetchedProduct.data.message.price,
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
+  useEffect(() => {}, [selectedProductInformation]);
+
   useEffect(() => {
     OnClickOnSelected();
   }, [selectedProduct]);
 
-  // Search OnClick
-  // const getProduct = async () => {
-  //   const searchedProduct = searchURL + search.search;
+  const [products, SetProducts] = useState({
+    ProductName: '',
+    BrandName: '',
+    Unit: '',
+    Price: '',
+  });
+  const onChangeHandle = (e) => {
+    const newProducts = { ...products };
+    newProducts[e.target.id] = e.target.value;
+    SetProducts(newProducts);
+    console.log(newProducts);
+  };
 
-  //   try {
-  //     const result = await axios.get(searchedProduct);
-  //     console.log(result.data.message);
-  //     setResultProducts(result.data.message);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
+  //For Deleting the Item
+  const deleteURL = 'http://localhost:4000/product/delete/';
+  const OnClickDelete = async () => {
+    const combinedUpdateURL = `${deleteURL}${deleteProduct}`;
+    console.log(combinedUpdateURL);
 
-  //   console.log(searchedProduct);
-  // };
+    try {
+      const deleteProductSelected = await axios.delete(combinedUpdateURL);
+      deletenotify();
+      OnclickSearch();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    OnClickDelete();
+  }, [deleteProduct]);
 
   return (
     <div>
@@ -119,8 +145,8 @@ const Update = () => {
         pauseOnHover
       />
       <div className="optionContainer">
-        <h1>Search Item to Update</h1>
-        <Box sx={{ width: "100%" }}>
+        <h1>Search Item to Update or Delete</h1>
+        <Box sx={{ width: '100%' }}>
           <Stepper activeStep={StepCounter} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
@@ -142,68 +168,110 @@ const Update = () => {
             Search
           </button>
 
-          <div className="tableContainer">
+          <div
+            className="tableContainer"
+            style={{ display: ` ${formHidden.tableContainer}` }}
+          >
             <table className="searchProductContainer">
-              <tr>
-                <th>PRODUCT</th>
-                <th>BRAND</th>
-                <th>UNIT</th>
-                <th>PRICE</th>
-                <th></th>
-              </tr>
-              {result.map((result) => (
-                <tr key={result._id}>
-                  <td>{result.product}</td>
-                  <td>{result.brand}</td>
-                  <td>{result.unit}</td>
-                  <td>{result.price}</td>
-                  <button
-                    onClick={function () {
-                      setSelectedProduct(result._id);
-                    }}
-                  >
-                    Update
-                  </button>
+              <tbody>
+                <tr>
+                  <th>PRODUCT</th>
+                  <th>BRAND</th>
+                  <th>UNIT</th>
+                  <th>PRICE</th>
+                  <th></th>
                 </tr>
-              ))}
-            </table>
-          </div>
 
-          {/* {result.map((result) => (
-            <tbody key={result._id}>
-              <tr>
-                <td>{result.product}</td>
-              </tr>
-            </tbody>
-          ))} */}
+                {result.map((result) => (
+                  <tr key={result._id}>
+                    <td>{result.product}</td>
+                    <td>{result.brand}</td>
+                    <td>{result.unit}</td>
+                    <td>{result.price}</td>
+                    <td>
+                      <button
+                        onClick={function () {
+                          setSelectedProduct(result._id);
+                          setFormHidden({
+                            tableContainer: 'none',
+                            UpdateFormContainer: 'block',
+                          });
+                        }}
+                      >
+                        Update
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        onClick={function () {
+                          setDeleteProduct(result._id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {/* <h1>NO PRODUCT FOUND</h1> */}
+          </div>
         </div>
-        {/* <form>
-          <label htmlFor="Product">Product Name</label>
-          <input type="text" id="ProductName" required />
-          <label htmlFor="Product">Brand Name</label>
-          <input type="text" id="BrandName" />
-          <label htmlFor="Product">Unit</label>
-          <select name="Unit" id="Unit" required>
-            <option value=""></option>
-            <option defaultValue="Ampule">Ampule</option>
-            <option value="Bottle">Bottle</option>
-            <option value="Capsule">Capsule</option>
-            <option value="Cream">Cream</option>
-            <option value="Gel">Gel</option>
-            <option value="Inhaler">Inhaler</option>
-            <option value="Nebule">Nebule</option>
-            <option value="Pack">Pack</option>
-            <option value="Pieces">Pieces</option>
-            <option value="Piece">Piece</option>
-            <option value="Sachet">Sachet</option>
-            <option value="Tablet">Tablet</option>
-            <option value="Tube">Tube</option>
-            <option value="Vial">Vial</option>
-          </select>
-          <label htmlFor="Product">Price</label>
-          <input type="text" id="Price" required />
-          <button>Submit</button>
-        </form> */}
+        <div
+          className="formContainer"
+          style={{ display: ` ${formHidden.UpdateFormContainer}` }}
+        >
+          <form>
+            <label htmlFor="Product">Product Name</label>
+            <input
+              type="text"
+              id="ProductName"
+              value={selectedProductInformation.product}
+              onChange={onChangeHandle}
+              required
+            />
+            <label htmlFor="Product">Brand Name</label>
+            <input
+              type="text"
+              id="BrandName"
+              value={selectedProductInformation.brand}
+              onChange={onChangeHandle}
+            />
+            <label htmlFor="Product">Unit</label>
+            <select
+              name="Unit"
+              id="Unit"
+              value={selectedProductInformation.unit}
+              onChange={onChangeHandle}
+              required
+            >
+              <option value=""></option>
+              <option defaultValue="Ampule">Ampule</option>
+              <option value="Bottle">Bottle</option>
+              <option value="Capsule">Capsule</option>
+              <option value="Cream">Cream</option>
+              <option value="Gel">Gel</option>
+              <option value="Inhaler">Inhaler</option>
+              <option value="Nebule">Nebule</option>
+              <option value="Pack">Pack</option>
+              <option value="Pieces">Pieces</option>
+              <option value="Piece">Piece</option>
+              <option value="Sachet">Sachet</option>
+              <option value="Tablet">Tablet</option>
+              <option value="Tube">Tube</option>
+              <option value="Vial">Vial</option>
+            </select>
+            <label htmlFor="Product">Price</label>
+            <input
+              type="text"
+              id="Price"
+              value={selectedProductInformation.price}
+              onChange={onChangeHandle}
+              required
+            />
+            <button>Submit</button>
+          </form>
+        </div>
       </div>
     </div>
   );

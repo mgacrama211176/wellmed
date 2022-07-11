@@ -25,8 +25,7 @@ const Console = () => {
         <div className="links">
           <ul>
             <li>Add Items</li>
-            <li>Update Items</li>
-            <li>Delete Items</li>
+            <li>Update and Delete Items</li>
             <button onClick={Logout}>LOGOUT</button>
           </ul>
         </div>
