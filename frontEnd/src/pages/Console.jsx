@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '../assets/logo.jpg';
 import '../styles/add.css';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,15 @@ const Console = () => {
     nav('/');
   };
 
+  const [formHidden, setFormHidden] = useState({
+    addItems: 'none',
+    updateDelete: 'none',
+  });
+
+  useEffect(() => {
+    setFormHidden;
+  }, [formHidden]);
+
   return (
     <div>
       <div className="consoleContainer">
@@ -24,18 +33,39 @@ const Console = () => {
         </div>
         <div className="links">
           <ul>
-            <li>Add Items</li>
-            <li>Update and Delete Items</li>
+            <li
+              onClick={function () {
+                setFormHidden({
+                  addItems: 'block',
+                  updateDelete: 'none',
+                });
+              }}
+            >
+              Add Items
+            </li>
+            <li
+              onClick={function () {
+                setFormHidden({
+                  addItems: 'none',
+                  updateDelete: 'block',
+                });
+              }}
+            >
+              Update and Delete Items
+            </li>
             <button onClick={Logout}>LOGOUT</button>
           </ul>
         </div>
       </div>
       {/* COMPONENTS */}
       <div className="displayOptions">
-        {/* <div className="add">
+        <div className="add" style={{ display: ` ${formHidden.addItems}` }}>
           <AddItems />
-        </div> */}
-        <div className="update">
+        </div>
+        <div
+          className="update"
+          style={{ display: ` ${formHidden.updateDelete}` }}
+        >
           <Update />
         </div>
       </div>
