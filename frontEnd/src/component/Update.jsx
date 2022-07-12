@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from "react";
-import "../styles/update.css";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import '../styles/update.css';
+import axios from 'axios';
 
 //other components
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
 
 let StepCounter = 0;
 
 const Update = () => {
-  const steps = ["Search Product", "Select Product", "Make Changes"];
-  const [deleteProduct, setDeleteProduct] = useState("");
+  const steps = ['Search Product', 'Select Product', 'Make Changes'];
+  const [deleteProduct, setDeleteProduct] = useState('');
   const [formHidden, setFormHidden] = useState({
-    tableContainer: "block",
-    UpdateFormContainer: "none",
+    tableContainer: 'block',
+    UpdateFormContainer: 'none',
   });
 
-  const notify = () => {
+  const Updatenotify = () => {
     toast.success(`Updated: ${products.ProductName}`, {
-      position: "top-right",
+      position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -33,7 +33,7 @@ const Update = () => {
   };
   const deletenotify = () => {
     toast.success(`Product Deleted`, {
-      position: "top-right",
+      position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -43,7 +43,7 @@ const Update = () => {
     });
   };
   //SEARCHING FOR ID FUNCTIONS
-  const [searchID, setSearchID] = useState({ searchID: "" });
+  const [searchID, setSearchID] = useState({ searchID: '' });
 
   const OnChangeSearchInput = (e) => {
     const newSearch = { ...searchID };
@@ -54,7 +54,7 @@ const Update = () => {
 
   const [result, setResult] = useState([]);
   const OnclickSearch = async () => {
-    const productUrl = "http://localhost:4000/search/";
+    const productUrl = 'http://localhost:4000/search/';
     const SearchItem = productUrl + searchID.searchID;
     try {
       const result = await axios.get(SearchItem);
@@ -66,14 +66,14 @@ const Update = () => {
   };
 
   //when selected for UPDATE
-  const productURL = "http://localhost:4000/product/";
-  const [selectedProduct, setSelectedProduct] = useState("");
+  const productURL = 'http://localhost:4000/product/';
+  const [selectedProduct, setSelectedProduct] = useState('');
 
   const [selectedProductInformation, setSelectedProductInformation] = useState({
-    product: "",
-    brand: "",
-    unit: "",
-    price: "",
+    product: '',
+    brand: '',
+    unit: '',
+    price: '',
   });
 
   const OnClickOnSelected = async () => {
@@ -91,21 +91,24 @@ const Update = () => {
         price: fetchedProduct.data.message.price,
       });
     } catch (err) {
-      console.log(err);
+      console.log(`No Product Selected`);
     }
   };
 
   useEffect(() => {}, [selectedProductInformation]);
 
   useEffect(() => {
-    OnClickOnSelected();
+    if (selectedProduct === '') {
+    } else {
+      OnClickOnSelected();
+    }
   }, [selectedProduct]);
 
   const [products, SetProducts] = useState({
-    ProductName: "",
-    BrandName: "",
-    Unit: "",
-    Price: "",
+    ProductName: '',
+    BrandName: '',
+    Unit: '',
+    Price: '',
   });
   const onChangeHandle = (e) => {
     const newProducts = { ...products };
@@ -114,15 +117,33 @@ const Update = () => {
     console.log(newProducts);
   };
 
-  const onSubmitUpdate = (e) => {
-    const combinedUpdateURL = `${productURL}${selectedProduct}`;
+  const updateProductURL = 'http://localhost:4000/product/update/';
+  const onSubmitUpdate = async (e) => {
+    const combinedUpdateURL = `${updateProductURL}${selectedProduct}`;
     e.preventDefault();
-    console.log(combinedUpdateURL);
-    console.log(selectedProductInformation);
+    try {
+      const submitNewProductInfo = await axios.put(combinedUpdateURL, {
+        product: products.ProductName,
+        brand: products.BrandName,
+        unit: products.Unit,
+        price: parseFloat(products.Price),
+      });
+
+      Updatenotify();
+
+      console.log(products);
+      console.log(submitNewProductInfo);
+    } catch (err) {
+      console.log(err);
+    }
+
+    // console.log(combinedUpdateURL);
+    // console.log(selectedProductInformation);
+    // console.log(products);
   };
 
   //For Deleting the Item
-  const deleteURL = "http://localhost:4000/product/delete/";
+  const deleteURL = 'http://localhost:4000/product/delete/';
   const OnClickDelete = async () => {
     const combinedUpdateURL = `${deleteURL}${deleteProduct}`;
     console.log(combinedUpdateURL);
@@ -132,11 +153,14 @@ const Update = () => {
       deletenotify();
       OnclickSearch();
     } catch (err) {
-      console.log(err);
+      console.log(`No product selected for delete`);
     }
   };
   useEffect(() => {
-    OnClickDelete();
+    if (deleteProduct === '') {
+    } else {
+      OnClickDelete();
+    }
   }, [deleteProduct]);
 
   return (
@@ -154,7 +178,7 @@ const Update = () => {
       />
       <div className="optionContainer">
         <h1>Search Item to Update or Delete</h1>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <Stepper activeStep={StepCounter} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
@@ -201,8 +225,8 @@ const Update = () => {
                         onClick={function () {
                           setSelectedProduct(result._id);
                           setFormHidden({
-                            tableContainer: "none",
-                            UpdateFormContainer: "block",
+                            tableContainer: 'none',
+                            UpdateFormContainer: 'block',
                           });
                         }}
                       >
