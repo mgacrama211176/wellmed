@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/update.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import "../styles/update.css";
+import axios from "axios";
 
 //other components
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
 
 let StepCounter = 0;
 
 const Update = () => {
-  const steps = ['Search Product', 'Select Product', 'Make Changes'];
-  const [deleteProduct, setDeleteProduct] = useState('');
+  const steps = ["Search Product", "Select Product", "Make Changes"];
+  const [deleteProduct, setDeleteProduct] = useState("");
   const [formHidden, setFormHidden] = useState({
-    tableContainer: 'block',
-    UpdateFormContainer: 'none',
+    tableContainer: "block",
+    UpdateFormContainer: "none",
   });
 
   const notify = () => {
     toast.success(`Updated: ${products.ProductName}`, {
-      position: 'top-right',
+      position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -33,7 +33,7 @@ const Update = () => {
   };
   const deletenotify = () => {
     toast.success(`Product Deleted`, {
-      position: 'top-right',
+      position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -43,7 +43,7 @@ const Update = () => {
     });
   };
   //SEARCHING FOR ID FUNCTIONS
-  const [searchID, setSearchID] = useState({ searchID: '' });
+  const [searchID, setSearchID] = useState({ searchID: "" });
 
   const OnChangeSearchInput = (e) => {
     const newSearch = { ...searchID };
@@ -54,7 +54,7 @@ const Update = () => {
 
   const [result, setResult] = useState([]);
   const OnclickSearch = async () => {
-    const productUrl = 'http://localhost:4000/search/';
+    const productUrl = "http://localhost:4000/search/";
     const SearchItem = productUrl + searchID.searchID;
     try {
       const result = await axios.get(SearchItem);
@@ -66,14 +66,15 @@ const Update = () => {
   };
 
   //when selected for UPDATE
-  const [selectedProduct, setSelectedProduct] = useState('');
+  const productURL = "http://localhost:4000/product/";
+  const [selectedProduct, setSelectedProduct] = useState("");
+
   const [selectedProductInformation, setSelectedProductInformation] = useState({
-    product: '',
-    brand: '',
-    unit: '',
-    price: '',
+    product: "",
+    brand: "",
+    unit: "",
+    price: "",
   });
-  const productURL = 'http://localhost:4000/product/';
 
   const OnClickOnSelected = async () => {
     const combinedUpdateURL = `${productURL}${selectedProduct}`;
@@ -101,10 +102,10 @@ const Update = () => {
   }, [selectedProduct]);
 
   const [products, SetProducts] = useState({
-    ProductName: '',
-    BrandName: '',
-    Unit: '',
-    Price: '',
+    ProductName: "",
+    BrandName: "",
+    Unit: "",
+    Price: "",
   });
   const onChangeHandle = (e) => {
     const newProducts = { ...products };
@@ -113,8 +114,15 @@ const Update = () => {
     console.log(newProducts);
   };
 
+  const onSubmitUpdate = (e) => {
+    const combinedUpdateURL = `${productURL}${selectedProduct}`;
+    e.preventDefault();
+    console.log(combinedUpdateURL);
+    console.log(selectedProductInformation);
+  };
+
   //For Deleting the Item
-  const deleteURL = 'http://localhost:4000/product/delete/';
+  const deleteURL = "http://localhost:4000/product/delete/";
   const OnClickDelete = async () => {
     const combinedUpdateURL = `${deleteURL}${deleteProduct}`;
     console.log(combinedUpdateURL);
@@ -146,7 +154,7 @@ const Update = () => {
       />
       <div className="optionContainer">
         <h1>Search Item to Update or Delete</h1>
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
           <Stepper activeStep={StepCounter} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
@@ -193,8 +201,8 @@ const Update = () => {
                         onClick={function () {
                           setSelectedProduct(result._id);
                           setFormHidden({
-                            tableContainer: 'none',
-                            UpdateFormContainer: 'block',
+                            tableContainer: "none",
+                            UpdateFormContainer: "block",
                           });
                         }}
                       >
@@ -217,11 +225,13 @@ const Update = () => {
             {/* <h1>NO PRODUCT FOUND</h1> */}
           </div>
         </div>
+
+        {/* //FORM CONTAINER AFTER ONCLICK UPDATE */}
         <div
           className="formContainer"
           style={{ display: ` ${formHidden.UpdateFormContainer}` }}
         >
-          <form>
+          <form onSubmit={onSubmitUpdate}>
             <label htmlFor="Product">Product Name</label>
             <input
               type="text"
@@ -229,7 +239,6 @@ const Update = () => {
               placeholder={selectedProductInformation.product}
               value={setSelectedProductInformation.product}
               onChange={onChangeHandle}
-              required
             />
             <label htmlFor="Product">Brand Name</label>
             <input
@@ -244,8 +253,8 @@ const Update = () => {
               name="Unit"
               id="Unit"
               value={selectedProductInformation.unit}
+              placeholder={selectedProductInformation.unit}
               onChange={onChangeHandle}
-              required
             >
               <option value=""></option>
               <option defaultValue="Ampule">Ampule</option>
@@ -270,7 +279,6 @@ const Update = () => {
               placeholder={selectedProductInformation.price}
               onChange={onChangeHandle}
               value={setSelectedProductInformation.product}
-              required
             />
             <button type="submit">Submit</button>
           </form>
