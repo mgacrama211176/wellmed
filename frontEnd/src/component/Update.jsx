@@ -227,6 +227,7 @@ const Update = () => {
               type="text"
               id="ProductName"
               placeholder={selectedProductInformation.product}
+              value={setSelectedProductInformation.product}
               onChange={onChangeHandle}
               required
             />
@@ -235,6 +236,7 @@ const Update = () => {
               type="text"
               id="BrandName"
               placeholder={selectedProductInformation.brand}
+              value={setSelectedProductInformation.product}
               onChange={onChangeHandle}
             />
             <label htmlFor="Product">Unit</label>
@@ -267,6 +269,7 @@ const Update = () => {
               id="Price"
               placeholder={selectedProductInformation.price}
               onChange={onChangeHandle}
+              value={setSelectedProductInformation.product}
               required
             />
             <button type="submit">Submit</button>
