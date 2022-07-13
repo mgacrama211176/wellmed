@@ -28,13 +28,28 @@
   cursor: pointer;
   padding: 10px;
   font-weight: bold;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .links ul button {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   margin-top: 38em;
+  cursor: pointer;
+  height: 3rem;
+  background-color: #65a404;
+  color: #ffffff;
+  font-weight: bolder;
+  border: white 1px solid;
+  border-radius: 10px;
+}
+
+.links ul button:hover {
+  background-color: #53c1c0;
+  border: black 1px solid;
+  color: black;
 }
 
 .links ul li:hover {
-  border: 1px solid red;
+  text-decoration: underline;
+  color: #65a404;
 }

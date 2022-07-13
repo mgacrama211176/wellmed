@@ -53,13 +53,19 @@ const Update = () => {
   };
 
   const [result, setResult] = useState([]);
+
   const OnclickSearch = async () => {
     const productUrl = 'http://localhost:4000/search/';
     const SearchItem = productUrl + searchID.searchID;
+    setFormHidden('none');
     try {
       const result = await axios.get(SearchItem);
       setResult(result.data.message);
       StepCounter = 1;
+      setFormHidden({
+        tableContainer: 'block',
+        UpdateFormContainer: 'none',
+      });
     } catch (err) {
       console.log(err);
     }
