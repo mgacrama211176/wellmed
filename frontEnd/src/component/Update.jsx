@@ -129,6 +129,7 @@ const Update = () => {
   };
 
   const updateProductURL = 'http://localhost:4000/product/update/';
+
   const onSubmitUpdate = async (e) => {
     const combinedUpdateURL = `${updateProductURL}${selectedProduct}`;
     e.preventDefault();
@@ -306,24 +307,27 @@ const Update = () => {
             <input
               type="text"
               id="ProductName"
-              placeholder={selectedProductInformation.product}
-              value={setSelectedProductInformation.product}
+              // placeholder={selectedProductInformation.product}
+              value={selectedProductInformation.product}
               onChange={onChangeHandle}
             />
             <label htmlFor="Product">Brand Name</label>
             <input
               type="text"
               id="BrandName"
-              placeholder={selectedProductInformation.brand}
-              value={setSelectedProductInformation.product}
-              onChange={onChangeHandle}
+              // placeholder={selectedProductInformation.brand}
+              value={selectedProductInformation.brand}
+              onChange={(e) =>
+                setSelectedProductInformation.brand(e.target.value)
+              }
+              // onChange={onChangeHandle}
             />
             <label htmlFor="Product">Unit</label>
             <select
               name="Unit"
               id="Unit"
               value={selectedProductInformation.unit}
-              placeholder={selectedProductInformation.unit}
+              // placeholder={selectedProductInformation.unit}
               onChange={onChangeHandle}
             >
               <option value=""></option>
@@ -346,9 +350,9 @@ const Update = () => {
             <input
               type="text"
               id="Price"
-              placeholder={selectedProductInformation.price}
+              // placeholder={selectedProductInformation.price}
               onChange={onChangeHandle}
-              value={setSelectedProductInformation.product}
+              value={selectedProductInformation.product}
             />
             <button type="submit">Submit</button>
           </form>
