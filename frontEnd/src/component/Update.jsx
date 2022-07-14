@@ -121,6 +121,7 @@ const Update = () => {
     Unit: '',
     Price: '',
   });
+
   const onChangeHandle = (e) => {
     const newProducts = { ...products };
     newProducts[e.target.id] = e.target.value;
