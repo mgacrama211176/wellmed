@@ -24,7 +24,7 @@ const Update = () => {
   });
 
   const Updatenotify = () => {
-    toast.success(`Updated: ${products.ProductName}`, {
+    toast.success(`Updated: ${selectedProductInformation.product}`, {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -85,8 +85,6 @@ const Update = () => {
     price: '',
   });
 
-  selectedProductInformation.product;
-
   const OnClickOnSelected = async () => {
     const combinedUpdateURL = `${productURL}${selectedProduct}`;
 
@@ -106,8 +104,6 @@ const Update = () => {
     }
   };
 
-  useEffect(() => {}, [selectedProductInformation]);
-
   useEffect(() => {
     if (selectedProduct === '') {
     } else {
@@ -115,17 +111,12 @@ const Update = () => {
     }
   }, [selectedProduct]);
 
-  const [products, SetProducts] = useState({
-    ProductName: '',
-    BrandName: '',
-    Unit: '',
-    Price: '',
-  });
+  console.log(selectedProductInformation); /// heres where the data is kept
 
   const onChangeHandle = (e) => {
-    const newProducts = { ...products };
+    const newProducts = { ...selectedProductInformation };
     newProducts[e.target.id] = e.target.value;
-    SetProducts(newProducts);
+    setSelectedProductInformation(newProducts);
     console.log(newProducts);
   };
 
@@ -136,23 +127,17 @@ const Update = () => {
     e.preventDefault();
     try {
       const submitNewProductInfo = await axios.put(combinedUpdateURL, {
-        product: products.ProductName,
-        brand: products.BrandName,
-        unit: products.Unit,
-        price: parseFloat(products.Price),
+        product: selectedProductInformation.product,
+        brand: selectedProductInformation.brand,
+        unit: selectedProductInformation.unit,
+        price: parseFloat(selectedProductInformation.price),
       });
-
       Updatenotify();
-
-      console.log(products);
+      OnclickSearch();
       console.log(submitNewProductInfo);
     } catch (err) {
       console.log(err);
     }
-
-    // console.log(combinedUpdateURL);
-    // console.log(selectedProductInformation);
-    // console.log(products);
   };
 
   //For Deleting the Item
@@ -177,13 +162,6 @@ const Update = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // useEffect(() => {
-  //   if (deleteProduct === '') {
-  //   } else {
-  //     OnClickDelete();
-  //   }
-  // }, [deleteProduct]);
-  console.log(products.ProductName);
   return (
     <div>
       <ToastContainer
@@ -307,7 +285,7 @@ const Update = () => {
             <label htmlFor="Product">Product Name</label>
             <input
               type="text"
-              id="ProductName"
+              id="product"
               // placeholder={selectedProductInformation.product}
               value={selectedProductInformation.product}
               onChange={onChangeHandle}
@@ -315,18 +293,16 @@ const Update = () => {
             <label htmlFor="Product">Brand Name</label>
             <input
               type="text"
-              id="BrandName"
+              id="brand"
               // placeholder={selectedProductInformation.brand}
               value={selectedProductInformation.brand}
-              onChange={(e) =>
-                setSelectedProductInformation.brand(e.target.value)
-              }
+              onChange={onChangeHandle}
               // onChange={onChangeHandle}
             />
             <label htmlFor="Product">Unit</label>
             <select
               name="Unit"
-              id="Unit"
+              id="unit"
               value={selectedProductInformation.unit}
               // placeholder={selectedProductInformation.unit}
               onChange={onChangeHandle}
@@ -350,10 +326,10 @@ const Update = () => {
             <label htmlFor="Product">Price</label>
             <input
               type="text"
-              id="Price"
+              id="price"
               // placeholder={selectedProductInformation.price}
               onChange={onChangeHandle}
-              value={selectedProductInformation.product}
+              value={selectedProductInformation.price}
             />
             <button type="submit">Submit</button>
           </form>
