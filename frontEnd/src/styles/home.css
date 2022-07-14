@@ -98,21 +98,6 @@ form {
 }
 
 /* SEARCH RESULT */
-/* .searchProductContainer {
-  display: flex;
-  flex-flow: column wrap;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  padding: 0 50px;
-  border: 1px solid red;
-}
-
-.searchProductContainer tr {
-  padding: 0 50px;
-  max-width: 40em;
-} */
 
 .tableContainer {
   display: flex;

@@ -203,7 +203,7 @@ const Update = () => {
           className="tableContainer"
           style={{ display: ` ${formHidden.tableContainer}` }}
         >
-          <table className="searchProductContainer">
+          <table className="searchProductContainer" id="UpdateTable">
             <tbody>
               <tr>
                 <th>PRODUCT</th>
@@ -253,6 +253,7 @@ const Update = () => {
           {/* <h1>NO PRODUCT FOUND</h1> */}
         </div>
 
+        {/* Delete Confirmation Modal */}
         <Modal
           open={open}
           onClose={handleClose}
@@ -261,6 +262,7 @@ const Update = () => {
         >
           <form>
             <h1>Are you sure you want to delete this item?</h1>
+
             <button type="submit" onClick={OnClickDelete}>
               Yes
             </button>

@@ -2,7 +2,7 @@
   display: none;
 }
 .searchInputContainer,
-.tableContainer table {
+.tableContainer #UpdateTable {
   display: flex;
   justify-content: center;
   align-items: center;
