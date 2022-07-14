@@ -10,11 +10,14 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 
+//MUI components
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+
 let StepCounter = 0;
 
 const Update = () => {
   const steps = ['Search Product', 'Select Product', 'Make Changes'];
-  const [deleteProduct, setDeleteProduct] = useState('');
   const [formHidden, setFormHidden] = useState({
     tableContainer: 'block',
     UpdateFormContainer: 'none',
@@ -81,6 +84,8 @@ const Update = () => {
     unit: '',
     price: '',
   });
+
+  selectedProductInformation.product;
 
   const OnClickOnSelected = async () => {
     const combinedUpdateURL = `${productURL}${selectedProduct}`;
@@ -150,25 +155,33 @@ const Update = () => {
 
   //For Deleting the Item
   const deleteURL = 'http://localhost:4000/product/delete/';
-  const OnClickDelete = async () => {
+  const [deleteProduct, setDeleteProduct] = useState('');
+
+  const OnClickDelete = async (e) => {
     const combinedUpdateURL = `${deleteURL}${deleteProduct}`;
     console.log(combinedUpdateURL);
+    e.preventDefault();
 
     try {
       const deleteProductSelected = await axios.delete(combinedUpdateURL);
       deletenotify();
       OnclickSearch();
+      handleClose();
     } catch (err) {
       console.log(`No product selected for delete`);
     }
   };
-  useEffect(() => {
-    if (deleteProduct === '') {
-    } else {
-      OnClickDelete();
-    }
-  }, [deleteProduct]);
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  // useEffect(() => {
+  //   if (deleteProduct === '') {
+  //   } else {
+  //     OnClickDelete();
+  //   }
+  // }, [deleteProduct]);
+  console.log(products.ProductName);
   return (
     <div>
       <ToastContainer
@@ -194,7 +207,7 @@ const Update = () => {
           </Stepper>
         </Box>
 
-        <div className="searchInput">
+        <div className="searchInputContainer">
           <input
             type="search"
             name="searchID"
@@ -205,56 +218,83 @@ const Update = () => {
           <button type="submit" onClick={OnclickSearch}>
             Search
           </button>
-
-          <div
-            className="tableContainer"
-            style={{ display: ` ${formHidden.tableContainer}` }}
-          >
-            <table className="searchProductContainer">
-              <tbody>
-                <tr>
-                  <th>PRODUCT</th>
-                  <th>BRAND</th>
-                  <th>UNIT</th>
-                  <th>PRICE</th>
-                  <th></th>
-                </tr>
-
-                {result.map((result) => (
-                  <tr key={result._id}>
-                    <td>{result.product}</td>
-                    <td>{result.brand}</td>
-                    <td>{result.unit}</td>
-                    <td>{result.price}</td>
-                    <td>
-                      <button
-                        onClick={function () {
-                          setSelectedProduct(result._id);
-                          setFormHidden({
-                            tableContainer: 'none',
-                            UpdateFormContainer: 'block',
-                          });
-                        }}
-                      >
-                        Update
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        onClick={function () {
-                          setDeleteProduct(result._id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {/* <h1>NO PRODUCT FOUND</h1> */}
-          </div>
         </div>
+        <div
+          className="tableContainer"
+          style={{ display: ` ${formHidden.tableContainer}` }}
+        >
+          <table className="searchProductContainer">
+            <tbody>
+              <tr>
+                <th>PRODUCT</th>
+                <th>BRAND</th>
+                <th>UNIT</th>
+                <th>PRICE</th>
+                <th> </th>
+                <th> </th>
+              </tr>
+
+              {result.map((result) => (
+                <tr key={result._id}>
+                  <td>{result.product}</td>
+                  <td>{result.brand}</td>
+                  <td>{result.unit}</td>
+                  <td>{result.price}</td>
+                  <td>
+                    <button
+                      onClick={function () {
+                        setSelectedProduct(result._id);
+                        setFormHidden({
+                          tableContainer: 'none',
+                          UpdateFormContainer: 'block',
+                        });
+                      }}
+                    >
+                      Update
+                    </button>
+                  </td>
+                  <td>
+                    {/* //delete button */}
+
+                    <button
+                      onClick={() => {
+                        setDeleteProduct(result._id);
+                        StepCounter = 2;
+                        handleOpen();
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {/* <h1>NO PRODUCT FOUND</h1> */}
+        </div>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <form>
+            <h1>Are you sure you want to delete this item?</h1>
+            <button type="submit" onClick={OnClickDelete}>
+              Yes
+            </button>
+            <button
+              type="submit"
+              onClick={() => {
+                handleClose();
+                StepCounter = 1;
+              }}
+            >
+              No
+            </button>
+          </form>
+        </Modal>
 
         {/* //FORM CONTAINER AFTER ONCLICK UPDATE */}
         <div

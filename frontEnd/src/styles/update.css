@@ -1,6 +1,19 @@
 .formContainer {
   display: none;
 }
-/* .tableContainer {
-  display: none;
-} */
+.searchInputContainer,
+.tableContainer table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 10em;
+}
+
+.tableContainer table tr th {
+  padding: 10px;
+  margin: 10px;
+}
+
+.searchInputContainer #searchID {
+  max-height: 10em;
+}
