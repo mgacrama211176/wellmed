@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "NPM_CONFIG_PRODUCTION":"false"
+    "NPM_CONFIG_PRODUCTION": "false"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -15,10 +15,12 @@
     "@mui/material": "^5.8.6",
     "axios": "^0.27.2",
     "dialogflow": "^1.2.0",
+    "firebase": "^9.9.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
     "react-toastify": "^9.0.5",
+    "styled-components": "^5.3.5",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

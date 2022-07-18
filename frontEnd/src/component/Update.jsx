@@ -26,7 +26,7 @@ const Update = () => {
   const Updatenotify = () => {
     toast.success(`Updated: ${selectedProductInformation.product}`, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -37,7 +37,7 @@ const Update = () => {
   const deletenotify = () => {
     toast.success(`Product Deleted`, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
