@@ -8,6 +8,11 @@ import AddItems from '../component/add';
 import Update from '../component/Update';
 
 const Console = () => {
+  const [formHidden, setFormHidden] = useState({
+    addItems: 'none',
+    updateDelete: 'none',
+  });
+
   const getSessionUser = sessionStorage.getItem('admin');
   const nav = useNavigate();
 
@@ -15,11 +20,6 @@ const Console = () => {
     sessionStorage.removeItem('admin');
     nav('/');
   };
-
-  const [formHidden, setFormHidden] = useState({
-    addItems: 'none',
-    updateDelete: 'none',
-  });
 
   useEffect(() => {
     setFormHidden;

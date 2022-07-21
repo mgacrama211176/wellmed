@@ -8,29 +8,30 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import styled from 'styled-components';
 
-const ButtonOnClick = styled.button`
-  max-width: 100px;
-  background-color: #65a404;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bolder;
-  border: none;
-  color: white;
-  &:hover {
-    border: 1px solid black;
-    background-color: #22aaad;
-    color: black;
-  }
-`;
-
 const add = () => {
+  const ButtonOnClick = styled.button`
+    max-width: 100px;
+    background-color: #65a404;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bolder;
+    border: none;
+    color: white;
+    &:hover {
+      border: 1px solid black;
+      background-color: #22aaad;
+      color: black;
+    }
+  `;
+  const productUrl = 'http://localhost:4000/product/add';
+
   const [products, SetProducts] = useState({
     ProductName: '',
     BrandName: '',
     Unit: '',
     Price: '',
   });
-  const productUrl = 'http://localhost:4000/product/add';
+
   const notify = () => {
     toast.success(`Added: ${products.ProductName}`, {
       position: 'top-right',

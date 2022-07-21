@@ -24,14 +24,15 @@ const Home = () => {
     username: '',
     password: '',
   });
-  const [resultProducts, setResultProducts] = useState([]);
 
+  const [resultProducts, setResultProducts] = useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const nav = useNavigate();
 
   const url = 'http://localhost:4000/login';
   const searchURL = 'http://localhost:4000/search/';
+
   const notify = () =>
     toast.error('Incorrect Username or Password', {
       position: 'top-right',
