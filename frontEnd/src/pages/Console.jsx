@@ -23,8 +23,17 @@ const Console = () => {
 
   useEffect(() => {
     setFormHidden;
+    Protected();
   }, [formHidden]);
 
+  console.log(getSessionUser);
+
+  const Protected = () => {
+    if (getSessionUser) {
+    } else {
+      nav('/');
+    }
+  };
   return (
     <div>
       <div className="consoleContainer">

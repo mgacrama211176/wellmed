@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo.jpg';
@@ -17,8 +17,12 @@ import facebook from '../assets/icons/facebook.png';
 import map from '../assets/icons/map.png';
 
 const Home = () => {
+  const url = 'http://localhost:4000/login';
+  const searchURL = 'http://localhost:4000/search/';
+  const nav = useNavigate();
+
   //States
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [search, setSearch] = useState({ search: '' });
   const [login, setLogin] = useState({
     username: '',
@@ -26,12 +30,9 @@ const Home = () => {
   });
 
   const [resultProducts, setResultProducts] = useState([]);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const nav = useNavigate();
-
-  const url = 'http://localhost:4000/login';
-  const searchURL = 'http://localhost:4000/search/';
 
   const notify = () =>
     toast.error('Incorrect Username or Password', {
@@ -44,7 +45,14 @@ const Home = () => {
       progress: undefined,
     });
 
-  //Auto then Redirect to a new page.,
+  //LOGIN ON CHANGE
+  const onChangeHandle = (e) => {
+    const userInput = { ...login };
+    userInput[e.target.id] = e.target.value;
+    setLogin(userInput);
+  };
+
+  //Auth then Redirect to a new page.,
   const authAcountAndRedirect = (e) => {
     e.preventDefault(e);
     axios
@@ -67,14 +75,6 @@ const Home = () => {
       });
   };
 
-  //LOGIN ON CHANGE
-  const onChangeHandle = (e) => {
-    const userInput = { ...login };
-    userInput[e.target.id] = e.target.value;
-    setLogin(userInput);
-    console.log(userInput);
-  };
-
   //SearchBAR OnChangeHandle
   const searchBarChange = (e) => {
     const searchInput = { ...search };
@@ -89,7 +89,6 @@ const Home = () => {
 
     try {
       const result = await axios.get(searchedProduct);
-      console.log(result.data.message);
       setResultProducts(result.data.message);
     } catch (err) {
       console.log(err);
