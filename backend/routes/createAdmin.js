@@ -3,7 +3,7 @@ import adminModel from '../models/AdminAccount.js';
 import bcrypt from 'bcrypt';
 const router = express.Router();
 
-/* GET users listing. */
+/* Create users listing. */
 router.post('/', async (request, response) => {
   //manually adding admin on mongo
 

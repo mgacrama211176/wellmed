@@ -34,6 +34,7 @@ const Console = () => {
       nav('/');
     }
   };
+
   return (
     <div>
       <div className="consoleContainer">
